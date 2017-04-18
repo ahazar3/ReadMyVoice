@@ -5,7 +5,7 @@ import serial
 class App:
     def __init__(self):
 
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + "\ReadMyVoice.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + "/ReadMyVoice.json"
 
         # self.ser = serial.Serial()
         self.recognizer = speech_recognition.Recognizer()
@@ -35,11 +35,10 @@ class App:
             except speech_recognition.UnknownValueError:
                 print("Couldn't understand you, sorry\n")
                 return
-            '''
             except speech_recognition.RequestError:
                 print("Couldn't connect to Google... hmm\n")
                 return
-            '''
+
             print("You said \"" + transcription + "\"\n")
             self.iterations += 1
 
