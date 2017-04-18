@@ -1,8 +1,13 @@
 import speech_recognition
-
+import os
+import serial
 
 class App:
     def __init__(self):
+
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + "\ReadMyVoice.json"
+
+        # self.ser = serial.Serial()
         self.recognizer = speech_recognition.Recognizer()
         self.recognizer.dynamic_energy_threshold = True
         self.iterations = 0
@@ -25,15 +30,18 @@ class App:
                                                                     audio,
                                                                     credentials_json=None,
                                                                     language='en-US',
+                                                                    preferred_phrases=None,
                                                                     show_all=False)
             except speech_recognition.UnknownValueError:
                 print("Couldn't understand you, sorry\n")
                 return
+            '''
             except speech_recognition.RequestError:
                 print("Couldn't connect to Google... hmm\n")
                 return
-
+            '''
             print("You said \"" + transcription + "\"\n")
+            self.iterations += 1
 
     def main(self):
         while True:
