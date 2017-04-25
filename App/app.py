@@ -5,12 +5,13 @@ import serial
 class App:
     def __init__(self):
 
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + "\ReadMyVoice.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + "/ReadMyVoice.json"
 
         # self.ser = serial.Serial()
         self.recognizer = speech_recognition.Recognizer()
         self.recognizer.dynamic_energy_threshold = True
         self.iterations = 0
+        self.ser = serial.Serial("/dev/cu.usbmodem1421", 9600)
 
     def loop(self):
         with speech_recognition.Microphone() as microphone:
@@ -40,7 +41,17 @@ class App:
                 print("Couldn't connect to Google... hmm\n")
                 return
             '''
-            print("You said \"" + transcription + "\"\n")
+            #ser = serial.Serial("/dev/cu.usbmodem1421", 9600)   # open serial port that Arduino is using
+            print self.ser
+            #ser.write(transcription + " ")
+            #ser.write(transcription.encode())
+
+            #while (ser.isOpen)():
+            self.ser.write(transcription.encode() + '\n')
+
+            print("You said \"" + transcription.encode() + "\"\n")
+	        #ser = serial.Serial("/dev/cu.usbmodem1421", 9600)   # open serial port that Arduino is using
+	    #print ser
             self.iterations += 1
 
     def main(self):
