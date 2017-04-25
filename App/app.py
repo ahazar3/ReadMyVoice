@@ -36,7 +36,7 @@ class App:
             except speech_recognition.UnknownValueError:
                 print("Couldn't understand you, sorry\n")
                 return
-            '''
+	        '''
             except speech_recognition.RequestError:
                 print("Couldn't connect to Google... hmm\n")
                 return
@@ -51,7 +51,7 @@ class App:
 
             print("You said \"" + transcription.encode() + "\"\n")
 	        #ser = serial.Serial("/dev/cu.usbmodem1421", 9600)   # open serial port that Arduino is using
-	    #print ser
+	    
             self.iterations += 1
 
     def main(self):
